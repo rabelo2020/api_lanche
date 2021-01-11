@@ -1,10 +1,11 @@
 package com.lanches.api.model;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,14 +31,13 @@ public class Order {
 	@JoinTable(name = "tb_order_product", joinColumns = 
 		@JoinColumn(name="order_id"),
 		inverseJoinColumns = @JoinColumn(name="product_id"))
-	private List<Product> products;
+	private Set<Product> products = new HashSet<>();
 
 	public Order() {
 
 	}
 
-	public Order(Long id, String address, Double latitude, Double longitude, Instant moment, OrderStatus status,
-			List<Product> products) {
+	public Order(Long id, String address, Double latitude, Double longitude, Instant moment, OrderStatus status) {
 		
 		this.id = id;
 		this.address = address;
@@ -45,7 +45,7 @@ public class Order {
 		this.longitude = longitude;
 		this.moment = moment;
 		this.status = status;
-		this.products = products;
+		
 	}
 
 	public Long getId() {
@@ -96,9 +96,6 @@ public class Order {
 		this.status = status;
 	}
 
-	public List<Product> getProducts() {
-		return products;
-	}
 
 	@Override
 	public int hashCode() {

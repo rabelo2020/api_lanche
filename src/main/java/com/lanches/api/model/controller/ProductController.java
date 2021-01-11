@@ -11,26 +11,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lanches.api.model.Order;
 import com.lanches.api.model.Product;
+import com.lanches.api.model.dto.ProductDto;
 import com.lanches.api.model.repository.OrderRespository;
 import com.lanches.api.model.repository.ProductRespository;
+import com.lanches.api.model.service.ProductService;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 	
+	
 	@Autowired
-	private ProductRespository produtRespository;
+	private ProductService productService;
 	
 	@GetMapping
-	public List<?> buscarTodos(){
-		return produtRespository.findAll();
+	public List<ProductDto> buscarTodos(){
+		return productService.buscarTodos();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Product> buscarId(@PathVariable Long id) {
-		Product aa = produtRespository.findById(id).orElse(null);
-		return aa != null ? ResponseEntity.ok().body(aa) : 
-			ResponseEntity.badRequest().build();
+	public ResponseEntity<ProductDto> buscarId(@PathVariable Long id) {
+		ProductDto aa = productService.buscarOuFalhar(id);
+		return ResponseEntity.ok(aa);
 	}
 	
 	
