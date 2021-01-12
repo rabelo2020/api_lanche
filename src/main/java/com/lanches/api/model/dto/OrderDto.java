@@ -1,31 +1,55 @@
 package com.lanches.api.model.dto;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.lanches.api.model.Order;
 import com.lanches.api.model.OrderStatus;
 
 public class OrderDto {
 
-	
+	private Long id;
 	private String address;
 	private Double latitude;
 	private Double longitude;
 	private Instant moment;
 	private OrderStatus status;
-	
+
+	List<ProductDto> productDtos = new ArrayList<>();
+
 	public OrderDto() {
-		// TODO Auto-generated constructor stub
+
 	}
 
-	
-	public OrderDto(String address, Double latitude, Double longitude, Instant moment, OrderStatus status) {
+	public OrderDto(Long id, String address, Double latitude, Double longitude, Instant moment, OrderStatus status) {
 
+		this.id = id;
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.moment = moment;
 		this.status = status;
+
+	}
+
+	public OrderDto(Order entity) {
+		id = entity.getId();
+		address = entity.getAddress();
+		latitude = entity.getLatitude();
+		longitude = entity.getLatitude();
+		moment = entity.getMoment();
+		status = entity.getStatus();
+		productDtos = entity.getProducts().stream().map(x -> new ProductDto(x)).collect(Collectors.toList());
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getAddress() {
@@ -67,7 +91,9 @@ public class OrderDto {
 	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
-	
-	
-	
+
+	public List<ProductDto> getProductDtos() {
+		return productDtos;
+	}
+
 }

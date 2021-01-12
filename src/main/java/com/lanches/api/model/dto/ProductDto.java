@@ -4,7 +4,7 @@ import com.lanches.api.model.Product;
 
 public class ProductDto {
 	
-	//private Long id;
+	private Long id;
 	private String name;
 	private Double price;
 	private String description;
@@ -14,9 +14,9 @@ public class ProductDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductDto( String name, Double price, String description, String imageUri) {
+	public ProductDto(Long id, String name, Double price, String description, String imageUri) {
 		
-		//this.id = id;
+		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.description = description;
@@ -24,7 +24,7 @@ public class ProductDto {
 	}
 	
 	public ProductDto (Product product) {
-		//id = product.getId();
+		id = product.getId();
 		name = product.getName();
 		price = product.getPrice();
 		description = product.getDescription();
@@ -32,6 +32,14 @@ public class ProductDto {
 	}
 
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}

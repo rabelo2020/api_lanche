@@ -19,22 +19,26 @@ import com.lanches.api.model.service.ProductService;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-	
-	
+
 	@Autowired
 	private ProductService productService;
-	
-	@GetMapping
-	public List<ProductDto> buscarTodos(){
+
+	/*@GetMapping
+	public List<ProductDto> buscarTodos() {
 		return productService.buscarTodos();
-	}
-	
+	}*/
+
 	@GetMapping("/{id}")
 	public ResponseEntity<ProductDto> buscarId(@PathVariable Long id) {
 		ProductDto aa = productService.buscarOuFalhar(id);
 		return ResponseEntity.ok(aa);
 	}
-	
-	
+
+	@GetMapping
+	public ResponseEntity<List<ProductDto>> buscaOrdenadaName() {
+		List<ProductDto> productDtos = productService.buscarPorName();
+
+		return ResponseEntity.ok(productDtos);
+	}
 
 }

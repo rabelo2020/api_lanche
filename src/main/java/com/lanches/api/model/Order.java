@@ -27,7 +27,7 @@ public class Order {
 	private Instant moment;
 	private OrderStatus status;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_order_product", joinColumns = 
 		@JoinColumn(name="order_id"),
 		inverseJoinColumns = @JoinColumn(name="product_id"))
@@ -92,10 +92,9 @@ public class Order {
 		return status;
 	}
 
-	public void setStatus(OrderStatus status) {
-		this.status = status;
+	public Set<Product> getProducts() {
+		return products;
 	}
-
 
 	@Override
 	public int hashCode() {
